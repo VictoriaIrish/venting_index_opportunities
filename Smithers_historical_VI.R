@@ -35,13 +35,23 @@ SMITHERS_HIST_VI_LONG$Venting_Index <- factor(SMITHERS_HIST_VI_LONG$Venting_Inde
 
 
 #plot
-SMITHERS_HIST_VI_LONG %>%
+Historical_venting_smithers_plot <- SMITHERS_HIST_VI_LONG %>%
   ggplot(aes(as.factor(Month), Value, fill = Venting_Index)) +
   geom_col(position = "dodge") +
-  xlab("Month") +
-  ylab("Number of days") +
+  labs(
+    title = "Historical venting opportunities in Smithers (2014-2023)",
+    fill = "Venting Index",
+    x = "Month",
+    y = "Number of days"
+  ) +
   scale_fill_manual(
-    values = c("GFplus" = "blue", "Gminus" = "red", "FplusFplus" = "green", "Fplusminus" = "purple"),
-    labels = c("G/F+" = "GFplus", "G/-" = "Gminus", "F+/F+" = "FplusFplus", "F+/-" = "Fplusminus")
+    values = c("GFplus" = "#1f77b4", "Gminus" = "#ff7f0e", "FplusFplus" = "#2ca02c", "Fplusminus" = "#9467bd"),
+    labels = c("GFplus" = "G/F+", "Gminus" ="G/-","FplusFplus" = "F+/F+","Fplusminus" = "F+/-")
   )
-
+ggsave("Historical Venting Opportunities Smithers.jpg", 
+       plot = Historical_venting_smithers_plot,
+       width = 10,
+       height = 6,
+       units = "in",
+       dpi = 300
+       )
